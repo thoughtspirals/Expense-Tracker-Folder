@@ -1,0 +1,163 @@
+.pageTitle {
+  font-size: 3rem;
+  font-family: "Helvetica Neue", sans-serif; /* Smooth font */
+  color: #fff; /* White color */
+  letter-spacing: 2px; /* Slight letter spacing for readability */
+  font-weight: bold; /* Bold for emphasis */
+  line-height: 1.2; /* Balanced line height */
+}
+
+.sub-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.local-links:hover {
+  background-color: rgb(182, 199, 255);
+}
+
+.title {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.card-title {
+  color: rgb(255, 255, 255);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.toggle-button {
+  background-color: rgba(255, 255, 255, 0.199);
+  border: none; /* Remove default borders */
+  padding: 8px; /* Adjust padding */
+  border-radius: 5px;
+}
+
+.toggle-button:focus,
+.toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.762); /* Slight background on hover */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.85)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* Custom white icon */
+  width: 30px;
+  height: 30px;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1); /* Makes the default Bootstrap icon white */
+}
+
+.card-title {
+  font-family: "Helvetica Neue", sans-serif; /* Smooth font */
+}
+
+.charts {
+  background: linear-gradient(
+    90deg,
+    rgb(255, 255, 255),
+    /* Start with white */ rgba(212, 212, 212, 0.9)
+      /* Light gray with slight transparency */
+  );
+  backdrop-filter: blur(15px); /* More blur for a glassmorphic effect */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Deeper shadow for a modern look */
+
+  padding: 10px; /* More padding for spacing */
+  margin: 15px auto; /* Centering and spacing */
+  justify-content: center;
+  align-items: center;
+  max-width: 1300px; /* Limit width for better readability */
+}
+
+.Cards {
+  background: linear-gradient(
+    90deg,
+    rgb(255, 255, 255),
+    /* Start with white */ rgba(212, 212, 212, 0.9)
+      /* Light gray with slight transparency */
+  );
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Padding for content */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Softer shadow for depth */
+  color: #333; /* Dark text for better readability on light background */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.Cards:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+/* For small devices (phones) */
+@media (max-width: 576px) {
+  .charts {
+    padding: 5px; /* Less padding for smaller screens */
+    margin: 10px auto; /* Adjust margin for smaller screens */
+  }
+
+  .Cards {
+    padding: 5px; /* Less padding for cards */
+    margin-bottom: 5px; /* Add margin between cards */
+  }
+}
+
+/* For medium devices (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .charts {
+    padding: 10px; /* Default padding */
+    margin: 15px auto; /* Default margin */
+  }
+
+  .Cards {
+    padding: 10px; /* Default padding */
+    margin-bottom: 15px; /* Default margin */
+  }
+}
+
+.links {
+  text-decoration: none;
+}
+.pagination {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+.datasheet {
+  max-width: 1300px; /* Set the maximum width */
+  margin: 0 auto; /* Center the element horizontally */
+  padding: 20px; /* Optional: Add some padding for better spacing */
+}
+
+.apply-filters {
+  font-size: 0.875rem; /* Equivalent to fs-6 */
+  padding: 0.25rem 0.5rem; /* Adjust padding to make it smaller */
+  white-space: nowrap; /* Prevent text from wrapping */
+  background-color: rgb(57, 57, 255) !important;
+}
+
+.apply-filters:hover {
+  background-color: rgb(158, 158, 255) !important;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .apply-filters {
+    font-size: 0.75rem; /* Smaller font size for mobile */
+    padding: 0.2rem 0.4rem; /* Adjust padding for mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  .apply-filters {
+    font-size: 0.65rem; /* Even smaller font size for extra small devices */
+    padding: 0.15rem 0.3rem; /* Further adjust padding for extra small devices */
+  }
+}
+
+.filter-icons {
+  background-color: blue;
+}

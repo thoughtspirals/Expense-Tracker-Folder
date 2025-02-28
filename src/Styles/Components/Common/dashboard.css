@@ -1,0 +1,36 @@
+@media (max-width: 576px) {
+  .dashboard {
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 1.25rem; /* Smaller title size */
+  }
+
+  .card-text {
+    font-size: 1rem; /* Smaller text size */
+  }
+
+  .Cards {
+    margin-bottom: 15px; /* Adjust margin for smaller screens */
+  }
+}
+
+/* For medium devices (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 1.4rem; /* Slightly smaller title size */
+  }
+
+  .card-text {
+    font-size: 1.1rem; /* Slightly smaller text size */
+  }
+
+  .Cards {
+    margin-bottom: 20px; /* Adjust margin for medium screens */
+  }
+}
