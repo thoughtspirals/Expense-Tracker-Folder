@@ -51,27 +51,19 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to="/summary"
+                to="/ai-insights"
                 className="local-links d-flex fs-5 align-items-center py-2 px-3 rounded text-dark text-decoration-none"
               >
-                <i className="bi bi-bar-chart me-2"></i> Summary
+                <i className="bi bi-lightbulb me-2"></i> Ai Insights
               </Link>
             </li>
-            <li>
-              <Link
-                to="/settings"
-                className="local-links d-flex fs-5 align-items-center py-2 px-3 rounded text-decoration-none text-dark"
-              >
-                <i className="bi bi-gear me-2"></i> Settings
-              </Link>
-            </li>
+
             <li>
               <Link
                 to="/transactions"
                 className="local-links d-flex fs-5 align-items-center py-2 px-3 rounded text-decoration-none text-dark"
               >
-                <i className="bi bi-currency-rupee me-2"></i> Manage
-                Transactions
+                <i className="bi bi-currency-rupee me-2"></i> Manage Expenses
               </Link>
             </li>
             <li>
@@ -80,6 +72,14 @@ const Sidebar = () => {
                 className="local-links d-flex fs-5 align-items-center py-2 px-3 rounded text-decoration-none text-dark"
               >
                 <i className="bi bi-currency-dollar me-2"></i> All Transactions
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/settings"
+                className="local-links d-flex fs-5 align-items-center py-2 px-3 rounded text-decoration-none text-dark"
+              >
+                <i className="bi bi-gear me-2"></i> Settings
               </Link>
             </li>
           </ul>

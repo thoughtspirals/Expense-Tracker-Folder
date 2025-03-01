@@ -55,6 +55,52 @@ const ManageTransactions = () => {
             </Link>
           </Col>
         </Row>
+        <Row>
+          <Col md={4}>
+            <Link to="/all-expenses" className="links">
+              <Card className="Cards my-2">
+                <Card.Body>
+                  <Card.Title className="card-title text-dark">
+                    View Expenses
+                  </Card.Title>
+                  <Card.Text>
+                    Every single transaction in one place.View all of your
+                    expenses here
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+          <Col md={4}>
+            <Link to="/set-budget" className="links">
+              <Card className="Cards my-2">
+                <Card.Body>
+                  <Card.Title className="card-title text-dark">
+                    Set Budget
+                  </Card.Title>
+                  <Card.Text>
+                    Setting a budget for your expenses is important. You can set
+                    a budget here
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+          <Col md={4}>
+            <Link to="/check-budget" className="links">
+              <Card className="Cards my-2">
+                <Card.Body>
+                  <Card.Title className="card-title text-dark">
+                    Check Budget
+                  </Card.Title>
+                  <Card.Text>
+                    Want to know how much you have spent? Check your budget here
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

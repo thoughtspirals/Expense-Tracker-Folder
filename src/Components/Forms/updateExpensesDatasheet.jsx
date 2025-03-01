@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { Table, Spinner, Alert, Pagination } from "react-bootstrap";
 import axios from "axios";
-import ExpenseModal from "../Modals/expenseModal";
+import EditExpenseModal from "../Modals/updateModal";
 
 const ITEMS_PER_PAGE = 20;
-const PAGE_RANGE_DISPLAY = 5;
+const PAGE_RANGE_DISPLAY = 5; // Number of page links shown at a time
 
-const DataSheet = ({
+const UpdateExpensesDataSheet = ({
   apiEndpoint,
   filters,
   columns,
   mode = "view", // Default to view mode
   onAction,
+  onUpdate,
 }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,11 @@ const DataSheet = ({
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const handleRowClick = (expense) => {
+    setSelectedExpense(expense);
+    setShowModal(true);
   };
 
   const renderPaginationItems = () => {
@@ -103,19 +109,17 @@ const DataSheet = ({
     return pages;
   };
 
-  const handleRowClick = (expense) => {
-    setSelectedExpense(expense);
-    setShowModal(true);
-  };
+  const handleUpdateSuccess = (updatedExpense) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item._id === updatedExpense._id ? updatedExpense : item
+      )
+    );
 
-  const handleDeleteSuccess = async (expense) => {
-    try {
-      await onAction(expense);
-      setShowModal(false);
+    // Fetch updated data after a short delay to reflect changes
+    setTimeout(() => {
       fetchData();
-    } catch (error) {
-      console.error("Error deleting expense:", error);
-    }
+    }, 500);
   };
 
   return (
@@ -192,15 +196,17 @@ const DataSheet = ({
         </Pagination>
       )}
 
-      <ExpenseModal
+      <EditExpenseModal
         show={showModal}
         onClose={() => setShowModal(false)}
         expenseData={selectedExpense}
-        mode={mode}
-        onAction={handleDeleteSuccess}
+        onUpdate={(updatedData) => {
+          onAction(updatedData);
+          handleUpdateSuccess(updatedData);
+        }}
       />
     </>
   );
 };
 
-export default DataSheet;
+export default UpdateExpensesDataSheet;

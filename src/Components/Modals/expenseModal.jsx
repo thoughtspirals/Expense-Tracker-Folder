@@ -1,9 +1,22 @@
 import { Modal, Button } from "react-bootstrap";
+import { useState } from "react";
 
 const ExpenseModal = ({ show, onClose, expenseData, mode, onAction }) => {
-  console.log("Modal Mode:", mode);
+  const [loading, setLoading] = useState(false);
 
   if (!expenseData) return null;
+
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      await onAction(expenseData); // Ensure onAction handles the deletion
+      onClose(); // Close modal after successful deletion
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Modal show={show} onHide={onClose} centered>
@@ -28,12 +41,12 @@ const ExpenseModal = ({ show, onClose, expenseData, mode, onAction }) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={onClose} disabled={loading}>
           Close
         </Button>
         {mode === "delete" && (
-          <Button variant="danger" onClick={() => onAction(expenseData)}>
-            Delete
+          <Button variant="danger" onClick={handleDelete} disabled={loading}>
+            {loading ? "Deleting..." : "Delete"}
           </Button>
         )}
       </Modal.Footer>

@@ -3,29 +3,39 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const EditExpenseModal = ({ show, onClose, expenseData, onUpdate }) => {
-  const [editedData, setEditedData] = useState({});
+  const [editedData, setEditedData] = useState({
+    date: "",
+    category: "",
+    amount: "",
+    description: "",
+  });
   const [loading, setLoading] = useState(false);
 
-  // Initialize form with current data
+  // Initialize form with current data when modal opens
   useEffect(() => {
     if (expenseData) {
       setEditedData({
-        date: expenseData.date,
-        category: expenseData.category,
-        amount: expenseData.amount,
-        description: expenseData.description,
+        date: expenseData.date || "",
+        category: expenseData.category || "",
+        amount: expenseData.amount || "",
+        description: expenseData.description || "",
       });
     }
   }, [expenseData]);
 
   const handleChange = (e) => {
-    setEditedData({
-      ...editedData,
+    setEditedData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async () => {
+    if (!expenseData?._id) {
+      console.error("Invalid expense ID");
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await axios.put(
@@ -33,12 +43,17 @@ const EditExpenseModal = ({ show, onClose, expenseData, onUpdate }) => {
         editedData,
         { withCredentials: true }
       );
-      onUpdate(response.data);
-      onClose();
+      if (response.status === 200) {
+        onUpdate?.(response.data); // Ensure onUpdate is a function before calling it
+        onClose();
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
     } catch (error) {
-      console.error("Update failed:", error);
+      console.error("Update failed:", error.response?.data || error.message);
     } finally {
       setLoading(false);
+      alert("Transaction updated successfully!");
     }
   };
 
@@ -76,6 +91,7 @@ const EditExpenseModal = ({ show, onClose, expenseData, onUpdate }) => {
               onChange={handleChange}
               required
             >
+              <option value="">Select Category</option>
               <option value="Food">Food</option>
               <option value="Travel">Travel</option>
               <option value="Shopping">Shopping</option>

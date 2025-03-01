@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, Form, Button, Row, Col } from "react-bootstrap";
-import DataSheet from "../Forms/datasheet";
+import UpdateExpensesDataSheet from "../Forms/updateExpensesDatasheet";
 import Navbar from "../Reusables/Navbar";
 import EditExpenseModal from "../Modals/updateModal";
 
@@ -20,34 +20,44 @@ const UpdateTransactionsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
+  useEffect(() => {
+    console.log("Filters updated:", filters);
+  }, [filters]);
+
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
+    console.log("Filter changed:", e.target.name, "=", e.target.value);
   };
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
+    console.log("Submitting filters:", filters);
     fetchTransactions();
   };
 
   const fetchTransactions = async () => {
     try {
       const queryParams = new URLSearchParams(filters).toString();
+      console.log("Fetching transactions with query params:", queryParams);
+
       const response = await fetch(
         `/expense/filtered-expenses?${queryParams}`,
         { credentials: "include" }
       );
+
       if (!response.ok) throw new Error("Failed to fetch transactions");
+
       const data = await response.json();
-      // Handle data as needed
+      console.log("Fetched Transactions Data:", data);
     } catch (err) {
       setError("Error fetching transactions");
-      console.error("Error:", err);
+      console.error("Error fetching transactions:", err);
     }
   };
 
   const handleUpdateTransaction = async (updatedData) => {
     try {
-      console.log("Updating transaction:", updatedData); // Debugging log
+      console.log("Updating transaction:", updatedData);
 
       const response = await fetch(`/expense/update/${updatedData._id}`, {
         method: "PUT",
@@ -55,26 +65,27 @@ const UpdateTransactionsPage = () => {
         body: JSON.stringify(updatedData),
         credentials: "include",
       });
+
       if (!response.ok) throw new Error("Update failed");
 
-      console.log("Transaction updated successfully!"); // Debugging log
+      console.log("Transaction updated successfully!");
 
-      setSuccess("Transaction updated successfully!"); // Set success message
+      setSuccess("Transaction updated successfully!");
 
-      // Clear the success message after 3 seconds
       setTimeout(() => {
         setSuccess("");
       }, 3000);
 
       fetchTransactions();
-      setShowModal(false); // Close the modal after successful update
+      setShowModal(false);
     } catch (err) {
       setError("Error updating transaction");
-      console.error("Error:", err);
+      console.error("Error updating transaction:", err);
     }
   };
 
   const handleRowClick = (transaction) => {
+    console.log("Row clicked, opening modal for transaction:", transaction);
     setSelectedTransaction(transaction);
     setShowModal(true);
   };
@@ -95,7 +106,6 @@ const UpdateTransactionsPage = () => {
           </Alert>
         )}
 
-        {/* Identical Filter Section */}
         <Form onSubmit={handleFilterSubmit} className="mb-3">
           <Row
             className="p-2"
@@ -103,11 +113,6 @@ const UpdateTransactionsPage = () => {
               backgroundColor: "#5a5a5a",
               color: "white",
               borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "3px",
             }}
           >
             <Col xs={2}>
@@ -127,7 +132,6 @@ const UpdateTransactionsPage = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-
             <Col xs={2}>
               <Form.Group>
                 <Form.Label className="small">Start Date</Form.Label>
@@ -141,7 +145,6 @@ const UpdateTransactionsPage = () => {
                 />
               </Form.Group>
             </Col>
-
             <Col xs={2}>
               <Form.Group>
                 <Form.Label className="small">End Date</Form.Label>
@@ -155,7 +158,6 @@ const UpdateTransactionsPage = () => {
                 />
               </Form.Group>
             </Col>
-
             <Col xs={1}>
               <Form.Group>
                 <Form.Label className="small">Min ₹</Form.Label>
@@ -169,7 +171,6 @@ const UpdateTransactionsPage = () => {
                 />
               </Form.Group>
             </Col>
-
             <Col xs={1}>
               <Form.Group>
                 <Form.Label className="small">Max ₹</Form.Label>
@@ -183,7 +184,6 @@ const UpdateTransactionsPage = () => {
                 />
               </Form.Group>
             </Col>
-
             <Col xs={1}>
               <Form.Group>
                 <Form.Label className="small">Sort</Form.Label>
@@ -199,23 +199,7 @@ const UpdateTransactionsPage = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-
-            <Col xs="auto" style={{ minWidth: "120px" }}>
-              <Form.Group>
-                <Form.Label className="small">Price</Form.Label>
-                <Form.Select
-                  name="order"
-                  value={filters.order}
-                  onChange={handleFilterChange}
-                  size="sm"
-                >
-                  <option value="desc">High to Low</option>
-                  <option value="asc">Low to High</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-
-            <Col xs="auto" className="d-flex justify-content-center">
+            <Col xs="auto">
               <Button type="submit" className="btn btn-primary btn-md px-3">
                 Apply
               </Button>
@@ -223,12 +207,16 @@ const UpdateTransactionsPage = () => {
           </Row>
         </Form>
 
-        <DataSheet
+        <UpdateExpensesDataSheet
           apiEndpoint="/expense/filtered-expenses"
           filters={filters}
           columns={["Date", "Category", "Amount", "Description"]}
           mode="update"
           onRowClick={handleRowClick}
+          onAction={(updatedExpense) => {
+            console.log("Expense updated:", updatedExpense);
+            // You can add any other function handling here
+          }}
         />
 
         <EditExpenseModal

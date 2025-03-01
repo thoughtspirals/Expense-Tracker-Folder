@@ -10,6 +10,12 @@ import ManageTransactions from "./Components/Transactions/manageTransactions.jsx
 import ExpensesPage from "./Components/Transactions/viewTransactions.jsx";
 import DeleteTransactionsPage from "./Components/Transactions/deleteTransactions.jsx";
 import UpdateTransactionsPage from "./Components/Transactions/updateTransactions.jsx";
+import SetBudget from "./Components/Transactions/setBudget.jsx";
+import CheckBudget from "./Components/Transactions/checkBudget.jsx";
+
+//Ai
+import BudgetAI from "./Components/AI/budgetAiAnalysis.jsx";
+import AiInsights from "./Components/AI/aiInsights.jsx";
 
 //Common components
 import Header from "./Components/Reusables/header";
@@ -70,6 +76,10 @@ function App() {
               path="/update-transactions"
               element={<UpdateTransactionsPage />}
             />
+            <Route path="/set-budget" element={<SetBudget />} />
+            <Route path="/check-budget" element={<CheckBudget />} />
+            <Route path="/ai-budget" element={<BudgetAI />} />
+            <Route path="ai-insights" element={<AiInsights />} />
           </>
         ) : (
           <>
